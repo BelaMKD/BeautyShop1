@@ -1,0 +1,31 @@
+﻿@page
+@model BeautyShop1.Pages.MembershipModel
+@{
+    ViewData["Title"] = "Membership";
+    var x = 1;
+}
+
+<h1>Membership</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Membership Type</th>
+            <th scope="col">Service Discount</th>
+            <th scope="col">Product Discount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var membership in Model.Memberships)
+        {
+            <tr>
+                <td>@x</td>
+                <td>@membership.GetMembershipType()</td>
+                <td>@membership.ServiceDiscount().ToString("P")</td>
+                <td>@membership.ProductDiscount().ToString("P")</td>
+            </tr>
+            x++;
+        }
+    </tbody>
+</table>

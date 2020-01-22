@@ -1,0 +1,86 @@
+﻿@page
+@model BeautyShop1.Pages.Visit.ShopModel
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<head>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+
+<h1>Shop</h1>
+
+<a class="btn btn-success" asp-page="/Customers/Edit">Add Customer</a>
+<form method="post" class="row">
+    <input type="hidden" asp-for="Visit.Id" />
+    <div class="form-group col-sm-12">
+        <label asp-for="Visit.CustomerId"></label>
+        <select asp-for="Visit.CustomerId" asp-items="@Model.Customers" class="form-control">
+            <option value="">Select Customer</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Visit.CustomerId"></span>
+    </div>
+    <div class="col-sm-6">
+        <h4>Products</h4>
+        @for (var i = 0; i < Model.Products.Count(); i++)
+        {
+            var imgPath1 = "~/images/" + Model.Products[i].ImgPath;
+            <input type="hidden" asp-for="@Model.Products[i].Price" />
+            <div class="card" style="max-width: 500px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img src="@imgPath1" class="card-img" alt="..." asp-append-version="true">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-center">@Model.Products[i].Name</h5>
+                            <br />
+                            <label style="width:300px;" class="btn btn-primary form-check-label" for="@Model.Products[i].Id">
+                                <input type="checkbox" class="form-check-input" id="@Model.Products[i].Id" asp-for="Products[i].Selected"> $ @String.Format("{0:0.00}", Model.Products[i].Price)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="col-sm-6">
+        <h4>Services</h4>
+        @for (var i = 0; i < Model.Services.Count(); i++)
+        {
+            var imgPath1 = "~/images/" + Model.Services[i].ImgPath;
+            <input type="hidden" asp-for="@Model.Services[i].Price" />
+            <div class="card" style="max-width: 500px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img src="@imgPath1" class="card-img" alt="..." asp-append-version="true" style="height:166px; width:166px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-center">@Model.Services[i].Name</h5>
+                            <br />
+                            <label style="width:300px;" class="btn btn-primary form-check-label" for="@Model.Services[i].Id">
+                                <input type="checkbox" class="form-check-input" id="@Model.Services[i].Id" asp-for="Services[i].Selected"> $ @String.Format("{0:0.00}", Model.Services[i].Price)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-sm-12 d-flex align-items-center justify-content-end">
+        <button class="btn btn-primary btn-lg active" type="submit">Continue</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+

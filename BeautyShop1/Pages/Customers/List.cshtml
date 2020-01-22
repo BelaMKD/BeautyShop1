@@ -1,0 +1,53 @@
+﻿@page
+@model BeautyShop1.Pages.Customers.ListModel
+@{
+    ViewData["Title"] = "List";
+    var x = 1;
+}
+
+<h1>List</h1>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="search" asp-for="SearchTerm">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">
+                    Search
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Membership Type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@x</td>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Membership?.GetMembershipType()</td>
+                <td><a class="btn btn-primary" asp-page="/Customers/Edit" asp-route-id="@customer.Id">Edit</a></td>
+            </tr>
+            x++;
+        }
+    </tbody>
+    <tfoot style="visibility:@(Model.Customers.Any()? "hidden":"visible")">
+        <tr>
+            <td colspan="4" class="text-danger">No Customers!</td>
+        </tr>
+    </tfoot>
+</table>
+<a class="btn btn-success" asp-page="/Customers/Edit">Add Customer</a>

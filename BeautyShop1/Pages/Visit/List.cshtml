@@ -1,0 +1,53 @@
+﻿@page
+@model BeautyShop1.Pages.Visit.ListModel
+@{
+    ViewData["Title"] = "List";
+    var x = 1;
+}
+
+<h1>List</h1>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="search" asp-for="SearchTerm">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">
+                    Search
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Membership</th>
+            <th scope="col">Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var visit in Model.Visits)
+        {
+            <tr>
+                <td>@x</td>
+                <td>@visit.Customer.FirstName</td>
+                <td>@visit.Customer.LastName</td>
+                <td>@visit.Customer.Membership?.GetMembershipType()</td>
+                <td>@visit.TotalPay()</td>
+            </tr>
+            x++;
+        }
+    </tbody>
+    <tfoot style="visibility:@(Model.Visits.Any()? "hidden" : "visible")">
+        <tr>
+            <td colspan="5" class="text-danger">No visits!</td>
+        </tr>
+    </tfoot>
+</table>
+<a class="btn btn-success" asp-page="/Visit/Shop">Shop Now</a>
